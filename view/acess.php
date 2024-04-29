@@ -21,7 +21,12 @@ if(!isset($_SESSION['loginSucess'])){
   
       <section class="container">
           <h1>Parabens, você entrou</h1>
+          <form action="../Router/router.php" method="post">
+      <input class="send-button" type="submit" name="reset" value="Reiniciar"> </button>
+      </form>
       </section>
+     
+      
       
   </body>
   </html>

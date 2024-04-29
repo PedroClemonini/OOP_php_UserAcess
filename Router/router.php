@@ -13,13 +13,10 @@ class Router{
   public function takeTheRoad(){
     if(isset($_POST['cadastrar'])){
       $this->userController->createUser();
-
-    } elseif(isset($_POST['entrar'])){
-      $this->userController->login();
     } elseif(isset($_POST['entrar'])){
       $this->userController->login();
     } elseif(isset($_POST['reset'])){
-      $this->userController->login();
+      $this->userController->resetSession();
     } 
   }
   

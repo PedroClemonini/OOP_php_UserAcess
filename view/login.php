@@ -3,6 +3,7 @@ session_start();
 if(!isset($_SESSION['LoginTryQty'])){
   $_SESSION['LoginTryQty'] = 0;
 };
+
 ?>
 
 <!DOCTYPE html>
@@ -25,6 +26,9 @@ if(!isset($_SESSION['LoginTryQty'])){
 
     <?php
     if($_SESSION['LoginTryQty'] < 3){
+      echo $_SESSION['LoginTryQty'];
+    
+
     ?>
 
     <section class="container">

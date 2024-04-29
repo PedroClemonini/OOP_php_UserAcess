@@ -28,30 +28,26 @@ class UserController
   public function login()
   {
     session_start();
-
-    if(!isset($_SESSION['userTry'])){
-      $_SESSION['userTry'] = $_POST['cxmail'];
-    }
-
     $email = $_POST['cxmail'];
 
-    if($_SESSION['userTry'] != $email){
-      session_destroy();
+    if($_SESSION['emailTry'] != $email){
       $_SESSION['LoginTryQty'] = 0;
     }
 
-    $_SESSION['userTry'] = $_POST['cxmail'];
+    $_SESSION['emailTry'] = $_POST['cxmail'];
     $password = $_POST['cxpassword'];
-
-    if(!$this->userModel->login($email, $password)){
-      $_SESSION['LoginTryQty']++;
-      header("Location: ../view/login.php");
+    
+    if($this->userModel->login($email, $password)){
+      $_SESSION['loginSucess'] = true;  
+      header("Location: ../view/acess.php");
+      return;
     }
-    header("Location: ../view/acess.php");
-    $_SESSION['loginSucess'] = true;
+    $_SESSION['LoginTryQty']++;
+    header("Location: ../view/login.php");
 }
 
   public function resetSession(){
+    session_start();
     session_destroy();
     header("Location: ../view/login.php");
   }

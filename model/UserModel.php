@@ -9,11 +9,13 @@ class UserModel{
     $this->pdo = Connection::connect();
   }
   
-  public function createUser($username,$email,$password){
+  public function createUser($username,$email,$password) : bool
+  {
     try{
       $sql = "INSERT INTO tb_user (email,password,name) values (?,?,?)";
       $statement = $this->pdo->prepare($sql);
       $statement->execute([$email,$password,$username]);
+      
       return true;
     } catch(PDOException $e){
       echo 'Erro:' . $e->getMessage();
@@ -21,18 +23,21 @@ class UserModel{
     }
       
   }
-  public function login($email,$password){
+  public function login($email,$password) : bool
+  {
     try{
       $sql = "SELECT * from tb_user WHERE email = ? and password = ?";
       $statement = $this->pdo->prepare($sql);
       $statement->execute([$email,$password]);
 
-      if($statement->fetch(PDO::FETCH_ASSOC) == TRUE){
+
+      if($statement->fetch(PDO::FETCH_ASSOC)){
         return true;
       }else{
         echo 'Erro, usuário não encontrado';
         return false;
       }
+
     } catch(PDOException $e){
       echo 'Erro:' . $e->getMessage();
       return false;
