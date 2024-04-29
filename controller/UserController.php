@@ -4,6 +4,9 @@ require_once '../model/UserModel.php';
 class UserController
 {
   private $userModel;
+  private $username;
+  private $pasword;
+  private $email;
 
   public function __construct()
   {
@@ -11,25 +14,26 @@ class UserController
   }
 
   public function createUser()
-  {
-
-    if (!isset($_POST['cadastrar'])) {
+  { 
+    try{
       $username = $_POST['cxname'];
       $email = $_POST['cxmail'];
       $password = $_POST['cxpassword'];
-
-      $this->userModel->createUser($username, $email, $password);
+      
+      $this->userModel->createUser($username,$email,$password);
       header("Location: ../view/acess.php");
-    } else {
-      echo 'Erro ao cadastrar usuário';
-    }
+    }catch(Exception $e){
+        echo "Erro:". $e->getMessage();
+        return;
+      }
   }
+  
 
   public function login()
   {
     session_start();
     $email = $_POST['cxmail'];
-
+    
     if($_SESSION['emailTry'] != $email){
       $_SESSION['LoginTryQty'] = 0;
     }
